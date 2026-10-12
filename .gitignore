@@ -1,0 +1,23 @@
+# Angular
+node_modules/
+.angular/
+dist/
+coverage/
+
+# .NET
+**/bin/
+**/obj/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vs/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
