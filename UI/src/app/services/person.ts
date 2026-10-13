@@ -19,11 +19,11 @@ export class PersonService {
         return this.http.get<Person>(`${this.apiUrl}/${id}`);
     }
 
-    create(person: Person): Observable<Person> {
-        return this.http.post<Person>(this.apiUrl, person);
+    create(person: Omit<Person, 'id'>): Observable<string> {
+        return this.http.post(this.apiUrl, person, { responseType: "text" });
     }
 
-    update(id: number, person: Person): Observable<void> {
+    update(id: number, person: Partial<Person>): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, person);
     }
 

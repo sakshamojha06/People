@@ -2,56 +2,72 @@
 <div class="container mt-5">
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>People</h2>
+    <div>
+      <h2>People</h2>
+      <p class="text-muted mb-0">Manage your people records</p>
+    </div>
 
     <button
       mat-raised-button
       color="primary"
       routerLink="/add-person">
-      <mat-icon>add</mat-icon>
-      Add Person
+      <mat-icon>person_add</mat-icon>
+      Add New
     </button>
   </div>
 
-  <table class="table table-bordered table-hover">
+  @if (loading()) {
+    <p class="text-center">Loading people...</p>
+  } @else if (errorMessage()) {
+    <div class="alert alert-danger">
+      {{ errorMessage() }}
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
 
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+        <thead class="table-primary">
+          <tr>
+            <th>ID</th>
+            <th>Person Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      @for (person of people; track person.id) {
-        <tr>
-          <td>{{ person.name }}</td>
+        <tbody>
+          @for (person of people(); track person.id) {
+            <tr>
+              <td>{{ person.id }}</td>
+              <td>{{ person.name }}</td>
 
-          <td>
-            <button
-              mat-button
-              color="primary"
-              [routerLink]="['/edit-person', person.id]">
-              Edit
-            </button>
+              <td>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [routerLink]="['/edit-person', person.id]">
+                  <mat-icon>edit</mat-icon>
+                  Edit
+                </button>
 
-            <button
-              mat-button
-              color="warn"
-              (click)="deletePerson(person.id)">
-              Delete
-            </button>
-          </td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="3" class="text-center">
-            No people found.
-          </td>
-        </tr>
-      }
-    </tbody>
-
-  </table>
-
+                <button
+                  mat-raised-button
+                  color="warn"
+                  class="ms-2"
+                  (click)="deletePerson(person.id!)">
+                  <mat-icon>delete</mat-icon>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="text-center text-muted">
+                No people found.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
 </div>

@@ -8,10 +8,14 @@
 }
 
 .card-header {
-  background-color: #f2f2f2;
+  background-color: #e9ecef;
   padding: 15px;
 }
 
 .form-label {
   font-weight: 600;
+}
+
+.form-control {
+  padding: 10px;
 }

@@ -2,12 +2,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { PersonService } from '../../services/person';
 
 @Component({
   selector: 'app-add-person',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,MatButtonModule,MatIconModule],
   templateUrl: './add-person.html',
   styleUrl: './add-person.css'
 })
@@ -19,7 +23,8 @@ export class AddPerson {
 
   constructor(
     private personService: PersonService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   savePerson(): void {
@@ -33,8 +38,17 @@ export class AddPerson {
     if (!name) return;
 
     this.personService.create({ name }).subscribe({
-      next: () => this.router.navigate(['/']),
-      error: error => console.error('Unable to add person:', error)
+      next: () => {
+        this.snackBar.open('Record added successfully', 'Close', {
+          duration: 3500,
+          panelClass: ['record-added-snackbar']
+        });
+        this.router.navigate(['/']);
+      },
+      error: error => {
+        console.error(error);
+        alert('Unable to add person.');
+      }
     });
   }
 

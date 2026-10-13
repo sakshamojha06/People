@@ -1,38 +1,49 @@
 
 <div class="container mt-5">
+
   <div class="card shadow-sm">
     <div class="card-header">
       <h4 class="mb-0">Edit Person</h4>
     </div>
 
     <div class="card-body">
+
       <form [formGroup]="personForm" (ngSubmit)="updatePerson()">
 
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label">Person Name</label>
 
           <input
             type="text"
             class="form-control"
-            formControlName="name"
             placeholder="Enter person name"
+            formControlName="name"
           >
 
           @if (personForm.controls.name.invalid &&
                personForm.controls.name.touched) {
-            <small class="text-danger">Name is required.</small>
+            <small class="text-danger">Person name is required.</small>
           }
         </div>
 
-        <button type="submit" class="btn btn-primary me-2">
+        <button type="submit" mat-raised-button color="primary">
+          <mat-icon>edit</mat-icon>
           Update
         </button>
 
-        <button type="button" class="btn btn-secondary" (click)="cancel()">
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          class="ms-2"
+          (click)="cancel()">
+          <mat-icon>close</mat-icon>
           Cancel
         </button>
 
       </form>
+
     </div>
   </div>
+
 </div>
