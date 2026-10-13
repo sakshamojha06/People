@@ -18,6 +18,12 @@
   --mat-snack-bar-button-color: #fff;
 }
 
+.record-error-snackbar {
+  --mat-snack-bar-container-color: #b42318;
+  --mat-snack-bar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}
+
 .delete-confirm-dialog .mat-mdc-dialog-surface {
   border-top: 4px solid #d92d20;
   border-radius: 12px;

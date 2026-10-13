@@ -67,7 +67,10 @@ export class EditPerson implements OnInit {
       },
       error: error => {
         console.error(error);
-        alert('Unable to update person.');
+        this.snackBar.open('Unable to update record', 'Close', {
+          duration: 3500,
+          panelClass: ['record-error-snackbar']
+        });
       }
     });
   }

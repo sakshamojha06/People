@@ -12,14 +12,16 @@ describe('Home', () => {
   let fixture: ComponentFixture<Home>;
   let peopleResponse: Subject<Person[]>;
   let dialogResponse: Subject<boolean>;
-  let deleteResponse: Subject<void>;
+  let deleteResponse: Subject<string>;
+  let getPeople: ReturnType<typeof vi.fn>;
   let deletePerson: ReturnType<typeof vi.fn>;
   let showSnackbar: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     peopleResponse = new Subject<Person[]>();
     dialogResponse = new Subject<boolean>();
-    deleteResponse = new Subject<void>();
+    deleteResponse = new Subject<string>();
+    getPeople = vi.fn(() => peopleResponse.asObservable());
     deletePerson = vi.fn(() => deleteResponse.asObservable());
     showSnackbar = vi.fn();
 
@@ -30,7 +32,7 @@ describe('Home', () => {
         {
           provide: PersonService,
           useValue: {
-            getAll: () => peopleResponse.asObservable(),
+            getAll: getPeople,
             delete: deletePerson
           }
         },
@@ -72,7 +74,7 @@ describe('Home', () => {
     dialogResponse.next(true);
     expect(deletePerson).toHaveBeenCalledWith(1);
 
-    deleteResponse.next();
+    deleteResponse.next('Person deleted successfully.');
     expect(showSnackbar).toHaveBeenCalledWith(
       'Record deleted successfully',
       'Close',
@@ -80,5 +82,10 @@ describe('Home', () => {
         panelClass: ['record-deleted-snackbar']
       })
     );
+    expect(getPeople).toHaveBeenCalledTimes(2);
+
+    peopleResponse.next([]);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('No people found.');
   });
 });

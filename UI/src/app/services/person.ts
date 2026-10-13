@@ -23,11 +23,11 @@ export class PersonService {
         return this.http.post(this.apiUrl, person, { responseType: "text" });
     }
 
-    update(id: number, person: Partial<Person>): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${id}`, person);
+    update(id: number, person: Partial<Person>): Observable<string> {
+        return this.http.put(`${this.apiUrl}/${id}`, person, { responseType: "text" });
     }
 
-    delete(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    delete(id: number): Observable<string> {
+        return this.http.delete(`${this.apiUrl}/${id}`, { responseType: "text" });
     }
 }

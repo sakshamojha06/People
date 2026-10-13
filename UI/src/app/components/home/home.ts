@@ -86,7 +86,10 @@ export class Home implements OnInit {
         },
         error: error => {
           console.error('Unable to delete person:', error);
-          alert('Unable to delete person.');
+          this.snackBar.open('Unable to delete record', 'Close', {
+            duration: 3500,
+            panelClass: ['record-error-snackbar']
+          });
         }
       });
     });

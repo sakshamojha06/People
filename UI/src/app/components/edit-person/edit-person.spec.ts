@@ -25,7 +25,7 @@ describe('EditPerson', () => {
           provide: PersonService,
           useValue: {
             getById: () => of({ id: 1, name: 'Ada Lovelace' }),
-            update: () => of(undefined)
+            update: () => of('Person updated successfully.')
           }
         },
         { provide: MatSnackBar, useValue: { open: showSnackbar } }
