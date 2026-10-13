@@ -11,6 +11,16 @@ Directory.CreateDirectory(Path.GetDirectoryName(databasePath)!);
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite($"Data Source={databasePath}"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -20,6 +30,8 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 
 var app = builder.Build();
+
+app.UseCors("AllowAngular");
 
 app.UseSwagger();
 app.UseSwaggerUI();

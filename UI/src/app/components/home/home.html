@@ -1,1 +1,57 @@
-<p>home works!</p>
+
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>People</h2>
+
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/add-person">
+      <mat-icon>add</mat-icon>
+      Add Person
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover">
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (person of people; track person.id) {
+        <tr>
+          <td>{{ person.name }}</td>
+
+          <td>
+            <button
+              mat-button
+              color="primary"
+              [routerLink]="['/edit-person', person.id]">
+              Edit
+            </button>
+
+            <button
+              mat-button
+              color="warn"
+              (click)="deletePerson(person.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3" class="text-center">
+            No people found.
+          </td>
+        </tr>
+      }
+    </tbody>
+
+  </table>
+
+</div>

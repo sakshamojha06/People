@@ -1,0 +1,17 @@
+
+.container {
+  max-width: 650px;
+}
+
+.card {
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #f2f2f2;
+  padding: 15px;
+}
+
+.form-label {
+  font-weight: 600;
+}
